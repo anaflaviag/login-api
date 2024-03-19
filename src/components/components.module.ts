@@ -17,9 +17,6 @@ import { HttpModule } from '@nestjs/axios';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { join } from 'path';
-import { CacheModule } from '@nestjs/cache-manager';
-import { RedisClientOptions } from 'redis';
-import * as redisStore from 'cache-manager-redis-store';
 
 @Module({
   imports: [
@@ -40,15 +37,6 @@ import * as redisStore from 'cache-manager-redis-store';
     }),
     HttpModule.register({
       timeout: 30000,
-    }),
-    CacheModule.registerAsync<RedisClientOptions>({
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        store: redisStore,
-        host: configService.get('REDIS_HOST'),
-        port: configService.get('REDIS_PORT'),
-        password: configService.get('REDIS_PASSWORD'),
-      }),
     }),
     MailerModule.forRootAsync({
       inject: [ConfigService],

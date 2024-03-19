@@ -23,7 +23,7 @@ export class UserService {
   async createUser(createUserData: CreateUserData) {
     const { email } = createUserData;
     const checkUserEmail = await this.userModel.findOne({
-      email: email,
+      email,
     });
     if (checkUserEmail) {
       throw new HttpException(
@@ -141,7 +141,7 @@ export class UserService {
 
   async forgotPassword(email: string, service?: string) {
     const user = await this.userModel.findOne({
-      email: email,
+      email,
     });
     if (!user || (user.changePassword && service !== 'retry')) return;
     const temporaryPassword = randomUUID().substring(0, 16);

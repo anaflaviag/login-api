@@ -6,8 +6,7 @@ export class CommonLoggerMiddleware implements NestMiddleware {
   private logger = new Logger('HTTP');
 
   use(request: Request, response: Response, next: NextFunction): void {
-    const { ip, method, originalUrl } = request;
-    const userAgent = request.get('user-agent') || '';
+    const { method, originalUrl, headers } = request;
     const oldWrite = response.write;
     const oldEnd = response.end;
     const chunks = [];
@@ -25,7 +24,7 @@ export class CommonLoggerMiddleware implements NestMiddleware {
     response.on('finish', () => {
       const { statusCode } = response;
       const responseBody = Buffer.concat(chunks).toString('utf8');
-      let logMessage = `${method} ${originalUrl} - ${userAgent} ${ip} - ${statusCode}`;
+      let logMessage = `${method} ${originalUrl} - ${headers.referer} - ${statusCode}`;
       if (statusCode > 300) {
         this.logger.error(`${logMessage} Response: ${responseBody}`);
       } else this.logger.log(logMessage);

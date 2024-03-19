@@ -17,7 +17,7 @@ export class LocalStrategy extends PassportStrategy(
     });
   }
 
-  async validate(username: string, password: string): Promise<any> {
+  async validate(req: any, username: string, password: string): Promise<any> {
     const user = await this.userModel.findOne({
       email: username,
     });

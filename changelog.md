@@ -31,7 +31,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Tag                           | Release date |
 | ----------------------------  | -----------: |
+| [1.0.1](#101-2024-03-19)      |   2024-03-19 |
 | [1.0.0](#100-2024-03-18)      |   2024-03-18 |
+
+## [1.0.1] - 2024-03-19
+
+### Fixed
+
+- Fixed local strategy valdiate method
 
 ## [1.0.0] - 2024-03-18
 
