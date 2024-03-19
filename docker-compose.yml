@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo:latest
+    container_name: login-mongodb
+    ports:
+      - 27017:27017
+    networks:
+      - login-api-development-network
+
+  cache:
+    image: redis:latest
+    container_name: login-redis
+    command: redis-server --loglevel warning --requirepass MYPASSWORDFORTESTEENV2023!
+    ports:
+      - "6379:6379"
+    networks:
+      -  login-api-development-network
+
+networks:
+   login-api-development-network:
+    driver: bridge
